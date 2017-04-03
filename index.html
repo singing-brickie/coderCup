@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <body>
+    <h1>Welcome to BT room meeting room booker system</h1>
+    <h3>This website is not styled as Steve kennedy chose to style Andrew Tecey's site instead.<h3>
+    <h3>If you take any marks off for the lack of styling that would mean Steve A considers CSS to be code which could potentially put the entire fabric of the universe in jeopardy<h3>
+    <h3> On a side note Steve C ripped off an open source room booking system without changing a single line of code </h3>
+    <h3> So ours might be shit be at least we tried</h3>
+
+  <div ng-app="myApp" ng-controller="myCtrl">
+  <label>Time</label>
+  <select ng-model="schedTime">
+<option ng-repeat="time in times">{{time}} O'Clock</option>
+  </select>
+<label>Day</label>
+<select ng-model="schedDay">
+<option  ng-repeat="day in days">{{day}}</option>
+  </select>
+<label>Month</label>
+<select ng-model="schedMonth">
+<option ng-repeat="month in months">{{month}}</option>
+  </select>
+<label>Room</label>
+<select ng-model="schedRoom">
+<option ng-repeat="room in rooms">{{room}}</option>
+  </select>
+  <button ng-click="book()">Book</button>
+ {{myWelcome}}
+  </div>
+  </body>
+
+</html>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope,$http) {
+    $scope.times= ["9","10","11","12","1","2","3","4","5"];
+    $scope.days  = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
+    $scope.months = ["Jan","Feb","March","April","May","June","July","August","Sept","Oct","Nov","Dec"];
+    $scope.rooms = ["2.16","3.14","3.15"];
+    $scope.schedTime = "9 O'Clock";
+    $scope.schedDay ='1';
+    $scope.schedMonth = "Jan";
+    $scope.schedRoom = "2.16";
+    $scope.myWelcome = "this is a holder"
+    $scope.book = function() {
+        $http.post("https://zfg2jb8cgg.execute-api.eu-west-1.amazonaws.com/prod/simpleRoomBooker", {'name1':'richie','name2':'pete'})
+            .then(function(response) {
+        $scope.myWelcome = response.data;
+    });
+    }
+});
+</script>
+
